@@ -10,6 +10,13 @@ COPY package.json package-lock.json ./
 # Force install a compatible PostCSS version to fix the issue
 RUN npm install postcss@8.4.21 postcss-safe-parser@6.0.0 --legacy-peer-deps
 
+RUN npm config set retry 5 && \
+    npm config set fetch-retries 5 && \
+    npm config set fetch-retry-mintimeout 10000 && \
+    npm config set fetch-retry-maxtimeout 60000 && \
+    npm install postcss@8.4.21 postcss-safe-parser@6.0.0 --legacy-peer-deps
+
+
 # Install dependencies
 RUN npm install
 
